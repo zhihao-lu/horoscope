@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Horoscope Stocks</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    </head>
+    <body>
+        <div id="namer">
+        <div  style="text-align:center" novalidat id="title">
+            Enter your birthday
+            </div>
+        <div name="namer-input">
+        <form action="#" method="post" style="text-align:center" novalidat>
+            <input type = "text" name="nm" placeholder="DD/MM">
+            <input type = "submit" value = "submit" style="visibility: hidden;">
+
+        
+        </form>
+    </div>
+        
+        
+        
+        
+        
+        <div>
+            <ul>
+        <div style="text-align:center"> 
+        {% if companies %}
+        <h2><b>Stocks to buy</b></h2>
+        {% endif %}
+        </div>
+        {% for company in companies %}
+        <li>{{ company }}</li>
+        {% endfor %}
+        </ul>
+        <p> {{ wew }}</p>
+        </div>
+        </div>
+    </body>
+</html>

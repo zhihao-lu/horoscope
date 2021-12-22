@@ -19,18 +19,18 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1"
+          aws-region: "us-east-2"
 
       - name: Upload package to S3 bucket
-        run: aws s3 cp deploy_package.zip s3://horoscope-bucket
+        run: aws s3 cp deploy_package.zip s3://bucket-horoscope
 
       - name: Create new ElasticBeanstalk Application Version
         run: |
           aws elasticbeanstalk create-application-version \
           --application-name horoscope \
-          --source-bundle S3Bucket="horoscope-bucket",S3Key="deploy_package.zip" \
+          --source-bundle S3Bucket="bucket-horoscope",S3Key="deploy_package.zip" \
           --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
 
       - name: Deploy new ElasticBeanstalk Application Version
-        run: aws elasticbeanstalk update-environment --environment-name Horoscope-env-1 --version-label "ver-${{ github.sha }}"
+        run: aws elasticbeanstalk update-environment --environment-name Horoscope-env --version-label "ver-${{ github.sha }}"
